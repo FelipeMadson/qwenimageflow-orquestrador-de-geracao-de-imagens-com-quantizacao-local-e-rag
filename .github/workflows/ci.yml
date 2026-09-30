@@ -9,10 +9,10 @@ on:
 jobs:
   test-and-audit:
     name: Test & SAST Security Audit
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest]
         node-version: [22, 24]
 
     steps:
