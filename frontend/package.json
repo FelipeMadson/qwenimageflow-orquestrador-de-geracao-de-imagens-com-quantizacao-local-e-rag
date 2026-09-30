@@ -1,0 +1,20 @@
+{
+  "name": "qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag-frontend",
+  "version": "1.0.0",
+  "description": "Frontend SPA & Console Administrativo para QwenImageFlow: Orquestrador de Geração de Imagens com Quantização Local e RAG",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "vite": "^5.4.2",
+    "typescript": "^5.7.2"
+  }
+}
