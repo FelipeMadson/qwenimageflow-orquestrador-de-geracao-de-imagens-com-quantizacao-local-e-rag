@@ -1,5 +1,5 @@
 """
-SDK Oficial Python para QwenImageFlow: Orquestrador de Geração de Imagens com Quantização Local e RAG (qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag).
+SDK Oficial Python para Qwenimageflow Orquestrador De Geracao De Imagens Com Quantizacao Local E Rag (qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag).
 Desenvolvido com rigor de engenharia sênior por Felipe Madison (@FelipeMadson).
 Construído utilizando exclusivamente a biblioteca padrão do Python (zero dependências externas).
 """
@@ -13,25 +13,25 @@ import urllib.request
 from typing import Any, Dict, Optional, Union
 
 
-class QwenImageFlowOrquestradordeGeraodeImagenscomQuantizaoLocaleRAGError(Exception):
+class qwenimagefloworquestradordegeracaodeimagenscomquantizacaolocaleragError(Exception):
     """Exceção base do SDK."""
     def __init__(self, message: str, status_code: Optional[int] = None):
         super().__init__(message)
         self.status_code = status_code
 
 
-class AuthenticationError(QwenImageFlowOrquestradordeGeraodeImagenscomQuantizaoLocaleRAGError):
+class AuthenticationError(qwenimagefloworquestradordegeracaodeimagenscomquantizacaolocaleragError):
     """Erro de credenciais inválidas ou token expirado."""
     pass
 
 
-class RateLimitError(QwenImageFlowOrquestradordeGeraodeImagenscomQuantizaoLocaleRAGError):
+class RateLimitError(qwenimagefloworquestradordegeracaodeimagenscomquantizacaolocaleragError):
     """Erro de esgotamento de quota ou cota de requisições excedida."""
     pass
 
 
-class QwenImageFlowOrquestradordeGeraodeImagenscomQuantizaoLocaleRAGClient:
-    """Cliente oficial tipado para integração com QwenImageFlow: Orquestrador de Geração de Imagens com Quantização Local e RAG."""
+class qwenimagefloworquestradordegeracaodeimagenscomquantizacaolocaleragClient:
+    """Cliente oficial tipado para integração com Qwenimageflow Orquestrador De Geracao De Imagens Com Quantizacao Local E Rag."""
 
     def __init__(
         self,
@@ -93,7 +93,7 @@ class QwenImageFlowOrquestradordeGeraodeImagenscomQuantizaoLocaleRAGClient:
                     backoff = min((2 ** attempt) + random.uniform(0.1, 0.5), 5.0)
                     time.sleep(backoff)
                     continue
-                raise QwenImageFlowOrquestradordeGeraodeImagenscomQuantizaoLocaleRAGError(f"HTTP {status}: {body}", status_code=status)
+                raise qwenimagefloworquestradordegeracaodeimagenscomquantizacaolocaleragError(f"HTTP {status}: {body}", status_code=status)
 
             except (urllib.error.URLError, TimeoutError) as err:
                 last_error = err
@@ -102,7 +102,7 @@ class QwenImageFlowOrquestradordeGeraodeImagenscomQuantizaoLocaleRAGClient:
                     time.sleep(backoff)
                     continue
 
-        raise QwenImageFlowOrquestradordeGeraodeImagenscomQuantizaoLocaleRAGError(f"Falha de rede após {self.max_retries} tentativas: {last_error}")
+        raise qwenimagefloworquestradordegeracaodeimagenscomquantizacaolocaleragError(f"Falha de rede após {self.max_retries} tentativas: {last_error}")
 
     def check_health(self) -> Dict[str, Any]:
         """Verifica a integridade operacional do serviço."""

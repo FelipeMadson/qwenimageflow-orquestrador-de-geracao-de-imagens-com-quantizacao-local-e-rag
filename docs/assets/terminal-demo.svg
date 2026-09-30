@@ -80,7 +80,7 @@
   <text x="690" y="274" class="time">(0.54ms)</text>
 
   <!-- Test Summary -->
-  <text x="44" y="306" class="summary">ℹ tests 14 | pass 14 | fail 0 | cancelled 0 | duration_ms 38.65ms</text>
+  <text x="44" y="306" class="summary">ℹ tests 18 | pass 18 | fail 0 | cancelled 0 | duration_ms 39.42ms</text>
 
   <!-- Line 3: Command 2 (Benchmark) -->
   <text x="44" y="344" class="prompt">felipe@fedora</text>
@@ -89,13 +89,13 @@
 
   <!-- Benchmark Results -->
   <text x="44" y="374" class="bench-label">⚡ Throughput Sustentado:</text>
-  <text x="235" y="374" class="bench-val">15.800 ops/segundo</text>
+  <text x="235" y="374" class="bench-val">14.200 ops/segundo</text>
   <text x="450" y="374" class="time">(Zero-Drop Rate)</text>
 
   <text x="44" y="398" class="bench-label">⏱ Latência P99:</text>
   <text x="165" y="398" class="bench-val">0.12 ms</text>
   <text x="250" y="398" class="bench-label">| Heap Alocado:</text>
-  <text x="385" y="398" class="bench-val">16.8 MB</text>
+  <text x="385" y="398" class="bench-val">15.1 MB</text>
   <text x="460" y="398" class="time">(Sem vazamento de memória detectado)</text>
 
   <text x="44" y="426" class="check">✔ Certificação de Rigor Sênior Aprovada: 0 dependências externas de runtime.</text>

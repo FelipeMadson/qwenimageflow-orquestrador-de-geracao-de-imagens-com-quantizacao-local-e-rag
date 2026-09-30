@@ -1,5 +1,5 @@
 /**
- * SDK Oficial TypeScript / Node.js para QwenImageFlow: Orquestrador de Geração de Imagens com Quantização Local e RAG (qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag).
+ * SDK Oficial TypeScript / Node.js para Qwenimageflow Orquestrador De Geracao De Imagens Com Quantizacao Local E Rag (qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag).
  * Desenvolvido com rigor sênior por Felipe Madison (@FelipeMadson).
  * Zero dependências externas de runtime.
  */
@@ -35,19 +35,19 @@ export interface HealthResponse {
   version: string;
 }
 
-export class QwenImageFlowOrquestradordeGeraodeImagenscomQuantizaoLocaleRAGError extends Error {
+export class qwenimagefloworquestradordegeracaodeimagenscomquantizacaolocaleragError extends Error {
   public readonly status?: number;
   public readonly code?: string;
 
   constructor(message: string, status?: number, code?: string) {
     super(message);
-    this.name = "QwenImageFlowOrquestradordeGeraodeImagenscomQuantizaoLocaleRAGError";
+    this.name = "qwenimagefloworquestradordegeracaodeimagenscomquantizacaolocaleragError";
     this.status = status;
     this.code = code;
   }
 }
 
-export class QwenImageFlowOrquestradordeGeraodeImagenscomQuantizaoLocaleRAGClient {
+export class qwenimagefloworquestradordegeracaodeimagenscomquantizacaolocaleragClient {
   private readonly baseUrl: string;
   private readonly authToken?: string;
   private readonly tenantId: string;
@@ -99,7 +99,7 @@ export class QwenImageFlowOrquestradordeGeraodeImagenscomQuantizaoLocaleRAGClien
             await new Promise(res => setTimeout(res, delay));
             continue;
           }
-          throw new QwenImageFlowOrquestradordeGeraodeImagenscomQuantizaoLocaleRAGError(
+          throw new qwenimagefloworquestradordegeracaodeimagenscomquantizacaolocaleragError(
             `HTTP ${response.status}: ${errBody || response.statusText}`,
             response.status
           );
@@ -114,7 +114,7 @@ export class QwenImageFlowOrquestradordeGeraodeImagenscomQuantizaoLocaleRAGClien
       } catch (err: any) {
         lastError = err;
         if (err.name === "AbortError") {
-          lastError = new QwenImageFlowOrquestradordeGeraodeImagenscomQuantizaoLocaleRAGError(`Requisição excedeu timeout de ${options.timeoutMs ?? this.timeoutMs}ms`, 408);
+          lastError = new qwenimagefloworquestradordegeracaodeimagenscomquantizacaolocaleragError(`Requisição excedeu timeout de ${options.timeoutMs ?? this.timeoutMs}ms`, 408);
         }
         if (attempt < this.maxRetries) {
           const delay = Math.min(500 * Math.pow(2, attempt) + Math.random() * 200, 4000);
@@ -124,7 +124,7 @@ export class QwenImageFlowOrquestradordeGeraodeImagenscomQuantizaoLocaleRAGClien
       }
     }
 
-    throw lastError || new QwenImageFlowOrquestradordeGeraodeImagenscomQuantizaoLocaleRAGError("Falha na requisição após múltiplas tentativas.");
+    throw lastError || new qwenimagefloworquestradordegeracaodeimagenscomquantizacaolocaleragError("Falha na requisição após múltiplas tentativas.");
   }
 
   public async checkHealth(): Promise<HealthResponse> {
@@ -148,6 +148,6 @@ export class QwenImageFlowOrquestradordeGeraodeImagenscomQuantizaoLocaleRAGClien
   }
 }
 
-export function createClient(config: ClientConfig = {}): QwenImageFlowOrquestradordeGeraodeImagenscomQuantizaoLocaleRAGClient {
-  return new QwenImageFlowOrquestradordeGeraodeImagenscomQuantizaoLocaleRAGClient(config);
+export function createClient(config: ClientConfig = {}): qwenimagefloworquestradordegeracaodeimagenscomquantizacaolocaleragClient {
+  return new qwenimagefloworquestradordegeracaodeimagenscomquantizacaolocaleragClient(config);
 }

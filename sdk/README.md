@@ -1,6 +1,6 @@
-# SDKs de Cliente Poliglota — QwenImageFlow: Orquestrador de Geração de Imagens com Quantização Local e RAG
+# SDKs de Cliente Poliglota — Qwenimageflow Orquestrador De Geracao De Imagens Com Quantizacao Local E Rag
 
-SDKs oficiais desenvolvidos para integração de sistemas com o **QwenImageFlow: Orquestrador de Geração de Imagens com Quantização Local e RAG** (`qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag`), projetados sob os mais altos padrões de engenharia de software corporativa por **Felipe Madison (@FelipeMadson)**.
+SDKs oficiais desenvolvidos para integração de sistemas com o **Qwenimageflow Orquestrador De Geracao De Imagens Com Quantizacao Local E Rag** (`qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag`), projetados sob os mais altos padrões de engenharia de software corporativa por **Felipe Madison (@FelipeMadson)**.
 
 ---
 
@@ -10,9 +10,9 @@ SDKs oficiais desenvolvidos para integração de sistemas com o **QwenImageFlow:
 O SDK foi projetado com **zero dependências externas de runtime**, utilizando as APIs nativas do Node.js 22 LTS / navegadores modernos.
 
 ```typescript
-import { QwenImageFlowOrquestradordeGeraodeImagenscomQuantizaoLocaleRAGClient } from "./sdk/ts/client.ts";
+import { qwenimagefloworquestradordegeracaodeimagenscomquantizacaolocaleragClient } from "./sdk/ts/client.ts";
 
-const client = new QwenImageFlowOrquestradordeGeraodeImagenscomQuantizaoLocaleRAGClient({
+const client = new qwenimagefloworquestradordegeracaodeimagenscomquantizacaolocaleragClient({
   baseUrl: "http://127.0.0.1:3000",
   authToken: "sec_token_enterprise_9918",
   tenantId: "acme-corp"
@@ -42,9 +42,9 @@ console.log("Registro verificado:", audit.verified);
 100% em conformidade com Python 3.10+, utilizando estritamente a biblioteca padrão (`urllib.request`), sem requerer `pip install requests`.
 
 ```python
-from sdk.python.client import QwenImageFlowOrquestradordeGeraodeImagenscomQuantizaoLocaleRAGClient
+from sdk.python.client import qwenimagefloworquestradordegeracaodeimagenscomquantizacaolocaleragClient
 
-client = QwenImageFlowOrquestradordeGeraodeImagenscomQuantizaoLocaleRAGClient(
+client = qwenimagefloworquestradordegeracaodeimagenscomquantizacaolocaleragClient(
     base_url="http://127.0.0.1:3000",
     auth_token="sec_token_enterprise_9918",
     tenant_id="acme-corp"

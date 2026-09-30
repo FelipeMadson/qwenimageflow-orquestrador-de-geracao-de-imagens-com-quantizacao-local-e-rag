@@ -1,0 +1,46 @@
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "Qwenimageflow Orquestrador De Geracao De Imagens Com Quantizacao Local E Rag SBOM",
+  "documentNamespace": "https://github.com/FelipeMadson/qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag/spdxdocs/qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag-1.0.0-6a76fc35-e2c8-4a65-ae86-08678e373a09",
+  "creationInfo": {
+    "created": "2026-09-30T15:18:14.154Z",
+    "creators": [
+      "Person: Felipe Madison (@FelipeMadson)",
+      "Organization: Autonomous Portfolio Engine — Staff Engineering Grade",
+      "Tool: SecurityCiGenerator-1.0.0"
+    ],
+    "licenseListVersion": "3.21"
+  },
+  "packages": [
+    {
+      "name": "qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag",
+      "SPDXID": "SPDXRef-Package-qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag",
+      "versionInfo": "1.0.0",
+      "packageFileName": "qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag-1.0.0.tar.gz",
+      "packageSupplier": "Person: Felipe Madison (https://github.com/FelipeMadson)",
+      "originator": "Person: Felipe Madison (https://github.com/FelipeMadson)",
+      "downloadLocation": "git+https://github.com/FelipeMadson/qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag.git@v1.0.0",
+      "filesAnalyzed": false,
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "9ed27d2d120487a6f438341a7ca327ea31741c6c585451848a140e7b8a67d2e6"
+        }
+      ],
+      "homepage": "https://github.com/FelipeMadson/qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag",
+      "concludedLicense": "MIT",
+      "declaredLicense": "MIT",
+      "copyrightText": "Copyright (c) 2026 Felipe Madison (@FelipeMadson)",
+      "description": "Enterprise-grade production release for Qwenimageflow Orquestrador De Geracao De Imagens Com Quantizacao Local E Rag, engineered by Felipe Madison."
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relatedSpdxElement": "SPDXRef-Package-qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
