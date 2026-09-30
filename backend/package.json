@@ -1,6 +1,6 @@
 {
   "name": "qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag-backend",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Backend Enterprise SaaS para QwenImageFlow: Orquestrador de Geração de Imagens com Quantização Local e RAG",
   "type": "module",
   "main": "src/server.ts",

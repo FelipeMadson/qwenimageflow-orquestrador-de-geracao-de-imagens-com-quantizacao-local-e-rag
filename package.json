@@ -1,6 +1,6 @@
 {
   "name": "qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag-root",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "type": "module",
   "scripts": {
