@@ -2,9 +2,9 @@
   "slug": "qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag",
   "version": "v1.0.0",
   "archiveFilename": "qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag-v1.0.0.tar.gz",
-  "archiveSizeBytes": 44326,
-  "sha256": "036c4684d6adc7112a4a461ef36765f46c9d783f6daea17f9d4a54020174b66c",
+  "archiveSizeBytes": 44325,
+  "sha256": "dc348b7be6d549a634e9f9a2891434c85710f8ed325289cb359d1f4f596d9c78",
   "filesIncluded": 58,
-  "createdAt": "2026-09-30T15:42:57.603Z",
+  "createdAt": "2026-09-30T15:53:44.486Z",
   "author": "Felipe Madison (@FelipeMadson)"
 }
