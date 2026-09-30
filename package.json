@@ -1,5 +1,5 @@
 {
-  "name": "qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag-root",
+  "name": "@felipemadson/qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag",
   "version": "1.1.0",
   "private": true,
   "type": "module",
@@ -19,5 +19,9 @@
     "qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag"
   ],
   "author": "Felipe Madison (@FelipeMadson)",
-  "license": "MIT"
+  "license": "MIT",
+  "bin": {
+    "qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag": "./bin/cli.js",
+    "@felipemadson/qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag": "./bin/cli.js"
+  }
 }

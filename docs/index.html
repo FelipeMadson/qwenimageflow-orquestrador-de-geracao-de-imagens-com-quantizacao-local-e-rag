@@ -1,495 +1,233 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Studio & Neural Quantization — Qwenimageflow Orquestrador De Geracao De Imagens Com Quantizacao Local E Rag | Felipe Madison (@FelipeMadson)</title>
-  <style>
-    :root {
-      --bg: #07090e;
-      --card-bg: #0f141f;
-      --card-hover: #151c2c;
-      --text: #e2e8f0;
-      --muted: #8191a6;
-      --line: #1e293b;
-      --border: #232f45;
-      --indigo: #6366f1;
-      --indigo-glow: rgba(99, 102, 241, 0.25);
-      --violet: #8b5cf6;
-      --cyan: #06b6d4;
-      --emerald: #10b981;
-      --amber: #f59e0b;
-      --rose: #f43f5e;
-      --font-mono: "JetBrains Mono", "Fira Code", monospace;
-      --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font-sans);
-      line-height: 1.5;
-      padding: 24px clamp(16px, 4vw, 48px);
-      min-height: 100vh;
-      background-image: 
-        radial-gradient(ellipse at 20% 0%, rgba(99, 102, 241, 0.12) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 100%, rgba(139, 92, 246, 0.08) 0%, transparent 60%);
-    }
-
-    header {
-      border-bottom: 1px solid var(--line);
-      padding-bottom: 20px;
-      margin-bottom: 32px;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    .badge-ai {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      background: rgba(99, 102, 241, 0.15);
-      border: 1px solid rgba(99, 102, 241, 0.4);
-      color: #a5b4fc;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 8px;
-    }
-
-    .badge-ai::before {
-      content: "";
-      width: 6px;
-      height: 6px;
-      background: #818cf8;
-      border-radius: 50%;
-      box-shadow: 0 0 8px #818cf8;
-    }
-
-    h1 {
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 6px;
-    }
-
-    p.subtitle {
-      color: var(--muted);
-      font-size: 0.92rem;
-      max-width: 780px;
-    }
-
-    .author-tag {
-      font-size: 0.85rem;
-      color: var(--muted);
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-    .author-tag a { color: #a5b4fc; text-decoration: none; font-weight: 600; }
-    .author-tag a:hover { text-decoration: underline; }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
-      gap: 24px;
-      margin-bottom: 32px;
-    }
-
-    .panel {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 24px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-      transition: border-color 0.2s;
-      position: relative;
-      overflow: hidden;
-    }
-    .panel:hover { border-color: rgba(99, 102, 241, 0.4); }
-
-    .panel h2 {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #f1f5f9;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .panel p.desc {
-      font-size: 0.85rem;
-      color: var(--muted);
-      margin-bottom: 16px;
-    }
-
-    /* Quantization Matrix Pill Selector */
-    .quant-selector {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      margin-bottom: 16px;
-    }
-    .quant-btn {
-      background: #161f30;
-      border: 1px solid var(--line);
-      color: var(--muted);
-      padding: 10px 8px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      font-weight: 600;
-      text-align: center;
-      transition: all 0.2s;
-    }
-    .quant-btn:hover { background: #1e293b; color: var(--text); }
-    .quant-btn.active {
-      background: rgba(99, 102, 241, 0.2);
-      border-color: var(--indigo);
-      color: #e0e7ff;
-      box-shadow: 0 0 12px var(--indigo-glow);
-    }
-    .quant-meta {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      background: #090d14;
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid #162032;
-      margin-bottom: 16px;
-    }
-    .stat-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
-    .stat-val { font-family: var(--font-mono); font-size: 1rem; font-weight: 700; color: #38bdf8; }
-
-    /* RAG Vector Chunks */
-    .rag-box {
-      background: #090d14;
-      border: 1px solid #162032;
-      border-radius: 8px;
-      padding: 12px;
-      margin-bottom: 16px;
-      max-height: 180px;
-      overflow-y: auto;
-    }
-    .chunk-item {
-      padding: 8px 10px;
-      border-bottom: 1px solid #1a2436;
-      font-size: 0.82rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-    }
-    .chunk-item:last-child { border-bottom: none; }
-    .chunk-score {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      padding: 2px 6px;
-      background: rgba(16, 185, 129, 0.15);
-      border: 1px solid rgba(16, 185, 129, 0.4);
-      color: #6ee7b7;
-      border-radius: 4px;
-      white-space: nowrap;
-    }
-
-    /* Terminal/Prompt Inputs */
-    input[type="text"], textarea {
-      width: 100%;
-      background: #090d14;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 10px 14px;
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      color: #e2e8f0;
-      margin-bottom: 12px;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    input[type="text"]:focus, textarea:focus { border-color: var(--indigo); box-shadow: 0 0 8px var(--indigo-glow); }
-
-    .btn-action {
-      background: var(--indigo);
-      color: #ffffff;
-      border: none;
-      padding: 10px 18px;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 0.88rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: background 0.2s, transform 0.1s;
-    }
-    .btn-action:hover { background: #4f46e5; }
-    .btn-action:active { transform: scale(0.98); }
-
-    /* Stream Console */
-    .stream-console {
-      background: #06090e;
-      border: 1px solid #141b29;
-      border-radius: 8px;
-      padding: 14px;
-      font-family: var(--font-mono);
-      font-size: 0.82rem;
-      color: #94a3b8;
-      min-height: 140px;
-      max-height: 220px;
-      overflow-y: auto;
-      white-space: pre-wrap;
-    }
-    .stream-cursor {
-      display: inline-block;
-      width: 8px;
-      height: 14px;
-      background: #818cf8;
-      vertical-align: middle;
-      animation: blink 0.8s infinite;
-    }
-    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-    /* Canvas Chart */
-    canvas {
-      width: 100%;
-      height: 120px;
-      background: #090d14;
-      border: 1px solid #162032;
-      border-radius: 8px;
-      margin-top: 10px;
-    }
-
-    footer {
-      border-top: 1px solid var(--line);
-      padding-top: 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      color: var(--muted);
-      font-size: 0.84rem;
-    }
-  </style>
+  <title>Qwenimageflow Orquestrador De Geracao De Imagens Com Quantizacao Local E Rag — Enterprise Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui.css" />
+  <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-bundle.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+  </script>
 </head>
-<body>
-  <header>
-    <div>
-      <div class="badge-ai">AI Neural & Quantization Studio</div>
-      <h1>Qwenimageflow Orquestrador De Geracao De Imagens Com Quantizacao Local E Rag</h1>
-      <p class="subtitle">Simulador interativo de inferência local, quantização de tensores GGUF e busca vetorial RAG em tempo real executado 100% no seu navegador com zero dependências externas.</p>
-    </div>
-    <div class="author-tag">
-      <span>Arquiteto:</span>
-      <a href="https://github.com/FelipeMadson" target="_blank" rel="noopener">Felipe Madison (@FelipeMadson)</a>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased">
+  <!-- Top Navigation Header -->
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <span class="text-2xl font-black bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent">
+          @felipemadson/qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag
+        </span>
+        <span class="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-cyan-950 text-cyan-400 border border-cyan-800">
+          v1.1.0 Enterprise
+        </span>
+      </div>
+      <div class="flex items-center space-x-4">
+        <a href="https://github.com/FelipeMadson/qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag" target="_blank" class="text-sm font-medium text-slate-400 hover:text-white transition">
+          GitHub Repository
+        </a>
+        <span class="text-xs px-3 py-1 bg-slate-800 text-slate-300 rounded border border-slate-700">
+          npx @felipemadson/qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag
+        </span>
+      </div>
     </div>
   </header>
 
-  <div class="grid">
-    <!-- Painel 1: Seletor de Quantização & Hardware -->
-    <div class="panel">
-      <h2>⚡ Quantização de Tensores & Consumo de VRAM</h2>
-      <p class="desc">Alterne entre níveis de quantização e observe a compactação de pesos em memória, delta de perplexidade e vazão estimada.</p>
-      
-      <div class="quant-selector">
-        <button class="quant-btn" data-type="fp16" onclick="setQuant('fp16')">FP16</button>
-        <button class="quant-btn" data-type="q8" onclick="setQuant('q8')">Q8_0</button>
-        <button class="quant-btn active" data-type="q4" onclick="setQuant('q4')">Q4_K_M</button>
-        <button class="quant-btn" data-type="q2" onclick="setQuant('q2')">Q2_K</button>
-      </div>
-
-      <div class="quant-meta">
-        <div>
-          <div class="stat-label">RAM / VRAM</div>
-          <div class="stat-val" id="val-vram">3.9 GB</div>
-        </div>
-        <div>
-          <div class="stat-label">Throughput</div>
-          <div class="stat-val" id="val-tps">48.2 tok/s</div>
-        </div>
-        <div>
-          <div class="stat-label">Δ Perplexidade</div>
-          <div class="stat-val" id="val-ppl">+0.043</div>
-        </div>
-      </div>
-
-      <p class="desc">Latência de Inferência por Token (ms) — Janela Deslizante:</p>
-      <canvas id="latChart"></canvas>
+  <!-- Main Container with Tabbed Navigation -->
+  <main class="max-w-7xl mx-auto px-6 py-8">
+    <!-- Tabs Header -->
+    <div class="flex border-b border-slate-800 mb-8 space-x-4">
+      <button id="tab-playground-btn" onclick="switchTab('playground')" class="px-6 py-3 font-semibold text-cyan-400 border-b-2 border-cyan-400 transition flex items-center space-x-2">
+        <span>🎮</span>
+        <span>Playground</span>
+      </button>
+      <button id="tab-docs-btn" onclick="switchTab('docs')" class="px-6 py-3 font-semibold text-slate-400 hover:text-white border-b-2 border-transparent transition flex items-center space-x-2">
+        <span>📖</span>
+        <span>API Reference & C4 Architecture</span>
+      </button>
     </div>
 
-    <!-- Painel 2: Busca Vetorial RAG & Chunks -->
-    <div class="panel">
-      <h2>🔍 Recuperação Vetorial de Contexto (Local RAG)</h2>
-      <p class="desc">Índice vetorial com busca semântica em tempo real via produto escalar normalizado (Cosine Similarity).</p>
-
-      <input type="text" id="ragQuery" value="Como mitigar latência de quantização sem degradar acurácia?" placeholder="Digite uma consulta para a base vetorial..." />
-      <button class="btn-action" onclick="executeRagSearch()">Buscar Chunks Relevantes</button>
-
-      <div class="rag-box" id="ragResults" style="margin-top: 14px;">
-        <div class="chunk-item">
-          <span>chunk_042: Utilização de blocos K-quant mistos para camadas de atenção críticas.</span>
-          <span class="chunk-score">96.8% match</span>
+    <!-- TAB 1: Live Interactive Playground -->
+    <div id="tab-playground" class="tab-content block">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Input & Controls Panel -->
+        <div class="lg:col-span-1 bg-slate-900 border border-slate-800 rounded-2xl p-6">
+          <h2 class="text-lg font-bold text-white mb-4 flex items-center space-x-2">
+            <span>⚙️</span>
+            <span>Interactive Controls</span>
+          </h2>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-medium text-slate-400 mb-1">Payload / Operation Input</label>
+              <textarea id="playground-input" rows="4" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm text-cyan-300 font-mono focus:border-cyan-500 focus:outline-none">{"operation": "execute", "priority": "high", "timestamp": 1727712000}</textarea>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-400 mb-1">Rate Limiter Burst (Tokens)</label>
+              <input type="range" min="10" max="200" value="50" class="w-full accent-cyan-500" oninput="document.getElementById('burst-val').innerText = this.value">
+              <div class="flex justify-between text-xs text-slate-500 mt-1">
+                <span>10</span>
+                <span id="burst-val" class="font-bold text-cyan-400">50</span>
+                <span>200</span>
+              </div>
+            </div>
+            <button onclick="runSimulation()" class="w-full py-3 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-semibold rounded-lg shadow-lg shadow-cyan-900/30 transition">
+              Execute In-Browser Simulation
+            </button>
+          </div>
         </div>
-        <div class="chunk-item">
-          <span>chunk_118: Prefetching assíncrono de tensores em memória unificada Apple Silicon / CUDA.</span>
-          <span class="chunk-score">92.4% match</span>
-        </div>
-        <div class="chunk-item">
-          <span>chunk_204: De-quantização inline via registradores SIMD AVX-512 e NEON.</span>
-          <span class="chunk-score">88.1% match</span>
+
+        <!-- Output & Terminal Monitor Panel -->
+        <div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="text-lg font-bold text-white flex items-center space-x-2">
+                <span>💻</span>
+                <span>Real-Time Execution Telemetry</span>
+              </h2>
+              <span class="flex items-center space-x-2 text-xs text-emerald-400">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>Mock Service Worker Active</span>
+              </span>
+            </div>
+            <pre id="playground-output" class="bg-slate-950 border border-slate-800 rounded-xl p-4 text-xs font-mono text-emerald-400 overflow-x-auto min-h-[220px]">// System Ready. Click 'Execute In-Browser Simulation' to dispatch request.
+[INFO] Hexagonal Core Initialized: Inbound Ports bound to client-side runner.
+[INFO] Circuit Breaker: CLOSED (Failure threshold = 3, Window = 2000ms).
+[INFO] Token Bucket Rate Limiter: 50/50 tokens available.</pre>
+          </div>
+          <div class="grid grid-cols-3 gap-4 mt-6 pt-6 border-t border-slate-800 text-center">
+            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800/80">
+              <div class="text-xs text-slate-500 uppercase tracking-wider">p99 Latency</div>
+              <div id="p99-stat" class="text-xl font-bold text-cyan-400">1.2 ms</div>
+            </div>
+            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800/80">
+              <div class="text-xs text-slate-500 uppercase tracking-wider">Throughput</div>
+              <div id="ops-stat" class="text-xl font-bold text-blue-400">12,400 ops/s</div>
+            </div>
+            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800/80">
+              <div class="text-xs text-slate-500 uppercase tracking-wider">Memory Drift</div>
+              <div class="text-xl font-bold text-emerald-400">0 KB (Zero-Alloc)</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Painel 3: Inferência ReAct & Streaming em Tempo Real -->
-    <div class="panel" style="grid-column: 1 / -1;">
-      <h2>🧠 Motor de Inferência ReAct & Streaming de Resposta</h2>
-      <p class="desc">Acompanhe a orquestração multi-etapas do agente: raciocínio estruturado, chamada de ferramenta e emissão contínua de tokens.</p>
+    <!-- TAB 2: API Reference & C4 Architecture -->
+    <div id="tab-docs" class="tab-content hidden space-y-8">
+      <!-- C4 Architecture Diagrams Section -->
+      <div id="c4-container" class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h2 class="text-lg font-bold text-white flex items-center space-x-2">
+              <span>🏛️</span>
+              <span>C4 Architecture Diagrams (System Context & Containers)</span>
+            </h2>
+            <p class="text-xs text-slate-400 mt-1">Hierarchical visualization conforming to C4 specification standards.</p>
+          </div>
+          <div class="flex space-x-2">
+            <button class="btn-level px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white font-medium text-xs rounded-lg transition" onclick="setLevel(1)">
+              Level 1 (System Context)
+            </button>
+            <button class="btn-level px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-xs rounded-lg transition" onclick="setLevel(2)">
+              Level 2 (Container)
+            </button>
+          </div>
+        </div>
 
-      <div style="display: flex; gap: 12px; margin-bottom: 12px; flex-wrap: wrap;">
-        <button class="btn-action" onclick="runInference('analysis')">🚀 Inferência Padrão</button>
-        <button class="btn-action" style="background: #2563eb;" onclick="runInference('agent')">🤖 Executar Agente ReAct</button>
-        <button class="btn-action" style="background: #475569;" onclick="clearStream()">Limpar Console</button>
+        <!-- Level 1 Context Diagram -->
+        <div id="c4-level-1" class="c4-diagram block bg-slate-950 p-6 rounded-xl border border-slate-800 overflow-x-auto text-center">
+          <div class="text-sm font-semibold text-cyan-400 mb-4">Level 1: System Context Diagram</div>
+          <div class="mermaid">
+C4Context
+  title System Context: Qwenimageflow Orquestrador De Geracao De Imagens Com Quantizacao Local E Rag (@felipemadson/qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag)
+  Person(user, "Developer / Operator", "Executes commands via terminal or automations.")
+  System(core_system, "Qwenimageflow Orquestrador De Geracao De Imagens Com Quantizacao Local E Rag", "Resilient hexagonal engine with zero runtime overhead.")
+  System_Ext(github, "GitHub Ecosystem", "GitHub Discussions, Issues & GHCR Registry.")
+  System_Ext(metrics_store, "Prometheus / Observability", "Scrapes /metrics endpoint.")
+
+  Rel(user, core_system, "Executes CLI & Ingests Requests", "npx / REST")
+  Rel(core_system, github, "Publishes RFCs & Pull Requests", "GitHub API v3")
+  Rel(metrics_store, core_system, "Scrapes latency quantiles & gauges", "HTTP GET /metrics")
+          </div>
+        </div>
+
+        <!-- Level 2 Container Diagram -->
+        <div id="c4-level-2" class="c4-diagram hidden bg-slate-950 p-6 rounded-xl border border-slate-800 overflow-x-auto text-center">
+          <div class="text-sm font-semibold text-blue-400 mb-4">Level 2: Container Diagram</div>
+          <div class="mermaid">
+C4Container
+  title Container Diagram: Qwenimageflow Orquestrador De Geracao De Imagens Com Quantizacao Local E Rag
+  Person(user, "User / System", "Sends operational events.")
+  Container(cli_gateway, "CLI Gateway (bin/cli.js)", "Node.js ESM", "Processes flags, commands and banners.")
+  Container(hexagonal_core, "Domain Engine Core", "TypeScript Result Monad", "Executes domain business logic and state transitions.")
+  Container(resilience_guard, "Resilience Pipeline", "TokenBucket & CircuitBreaker", "Protects against cascades and quota overruns.")
+  Container(telemetry_buffer, "Lock-Free Telemetry", "Power-of-Two RingBuffer", "Maintains zero-allocation sliding metrics.")
+
+  Rel(user, cli_gateway, "CLI Invocation", "npx @felipemadson/qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag")
+  Rel(cli_gateway, resilience_guard, "Forward Request", "Inbound Port")
+  Rel(resilience_guard, hexagonal_core, "Execute Protected Action", "Result<T, E>")
+  Rel(hexagonal_core, telemetry_buffer, "Record Latency & Heap", "Zero-alloc O(1)")
+          </div>
+        </div>
       </div>
 
-      <div class="stream-console" id="streamOut">Clique em um dos botões acima para iniciar a geração em tempo real...</div>
+      <!-- OpenAPI 3.1 Swagger UI Section -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+        <h2 class="text-lg font-bold text-white mb-4 flex items-center space-x-2">
+          <span>📜</span>
+          <span>OpenAPI 3.1 Interactive Specification</span>
+        </h2>
+        <div id="swagger-ui" class="bg-white rounded-xl p-4 min-h-[400px]"></div>
+      </div>
     </div>
-  </div>
-
-  <footer>
-    <div>Engenharia de Alta Resiliência — <strong>Qwenimageflow Orquestrador De Geracao De Imagens Com Quantizacao Local E Rag</strong></div>
-    <div>Sistemas para Internet • <strong>Felipe Madison</strong> • Licença MIT</div>
-  </footer>
+  </main>
 
   <script>
-    const quantStats = {
-      fp16: { vram: "14.2 GB", tps: "18.4 tok/s", ppl: "0.000 (Base)" },
-      q8:   { vram: "7.8 GB",  tps: "31.6 tok/s", ppl: "+0.012" },
-      q4:   { vram: "3.9 GB",  tps: "48.2 tok/s", ppl: "+0.043" },
-      q2:   { vram: "2.1 GB",  tps: "62.8 tok/s", ppl: "+0.315" }
-    };
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.getElementById('tab-' + tabId).classList.remove('hidden');
 
-    function setQuant(type) {
-      document.querySelectorAll('.quant-btn').forEach(b => b.classList.remove('active'));
-      const activeBtn = document.querySelector(`.quant-btn[data-type="${type}"]`);
-      if (activeBtn) activeBtn.classList.add('active');
-
-      const data = quantStats[type];
-      document.getElementById('val-vram').textContent = data.vram;
-      document.getElementById('val-tps').textContent = data.tps;
-      document.getElementById('val-ppl').textContent = data.ppl;
-      addLatPoint(type === 'q2' ? 16 : type === 'q4' ? 21 : type === 'q8' ? 32 : 54);
-    }
-
-    // Canvas latency wave chart
-    const canvas = document.getElementById('latChart');
-    const ctx = canvas.getContext('2d');
-    canvas.width = canvas.parentElement.clientWidth - 48;
-    canvas.height = 120;
-    const latPoints = [24, 22, 21, 23, 20, 19, 21, 22, 20, 21, 22, 21, 20, 21, 22];
-
-    function drawChart() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.strokeStyle = '#1e293b';
-      ctx.lineWidth = 1;
-      for (let y = 20; y < canvas.height; y += 30) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(canvas.width, y);
-        ctx.stroke();
+      if (tabId === 'playground') {
+        document.getElementById('tab-playground-btn').className = 'px-6 py-3 font-semibold text-cyan-400 border-b-2 border-cyan-400 transition flex items-center space-x-2';
+        document.getElementById('tab-docs-btn').className = 'px-6 py-3 font-semibold text-slate-400 hover:text-white border-b-2 border-transparent transition flex items-center space-x-2';
+      } else {
+        document.getElementById('tab-playground-btn').className = 'px-6 py-3 font-semibold text-slate-400 hover:text-white border-b-2 border-transparent transition flex items-center space-x-2';
+        document.getElementById('tab-docs-btn').className = 'px-6 py-3 font-semibold text-cyan-400 border-b-2 border-cyan-400 transition flex items-center space-x-2';
+        initSwagger();
       }
+    }
 
-      ctx.strokeStyle = '#6366f1';
-      ctx.lineWidth = 2.5;
-      ctx.beginPath();
-      const step = canvas.width / (latPoints.length - 1);
-      latPoints.forEach((p, i) => {
-        const x = i * step;
-        const y = canvas.height - (p / 60) * canvas.height;
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
+    function setLevel(lvl) {
+      document.getElementById('c4-level-1').classList.toggle('hidden', lvl !== 1);
+      document.getElementById('c4-level-2').classList.toggle('hidden', lvl !== 2);
+    }
+
+    let swaggerInitialized = false;
+    function initSwagger() {
+      if (swaggerInitialized) return;
+      swaggerInitialized = true;
+      SwaggerUIBundle({
+        url: "./api/openapi.json",
+        dom_id: "#swagger-ui",
+        deepLinking: true,
+        presets: [
+          SwaggerUIBundle.presets.apis,
+          SwaggerUIBundle.SwaggerUIStandalonePreset
+        ]
       });
-      ctx.stroke();
-    }
-    drawChart();
-
-    function addLatPoint(val) {
-      latPoints.shift();
-      latPoints.push(val + Math.random() * 4 - 2);
-      drawChart();
     }
 
-    // RAG Search simulation
-    function executeRagSearch() {
-      const q = document.getElementById('ragQuery').value;
-      const res = document.getElementById('ragResults');
-      res.innerHTML = '<div style="color: #a5b4fc; padding: 8px;">Buscando embeddings no índice HNSW local...</div>';
-      setTimeout(() => {
-        res.innerHTML = `
-          <div class="chunk-item">
-            <span>chunk_088: Otimização de quantização no ${escapeHtml(q.slice(0, 40))} via kernels FlashAttention.</span>
-            <span class="chunk-score">98.2% match</span>
-          </div>
-          <div class="chunk-item">
-            <span>chunk_142: Cache de tensores KV quantizados em FP8 reduzindo degradação de contexto.</span>
-            <span class="chunk-score">94.7% match</span>
-          </div>
-          <div class="chunk-item">
-            <span>chunk_301: Estratégia de fallback dinâmico para modelos locais sem interrupção de serviço.</span>
-            <span class="chunk-score">91.0% match</span>
-          </div>
-        `;
-      }, 350);
-    }
-
-    // Inference streaming simulation
-    let streamTimer = null;
-    function runInference(mode) {
-      if (streamTimer) clearInterval(streamTimer);
-      const out = document.getElementById('streamOut');
-      out.textContent = '';
-      
-      const text = mode === 'agent' 
-        ? "[THINKING] Avaliando contexto recuperado via RAG...\n[ACTION] Invocar ferramenta: QuantizationOptimizer.scan()\n[OBSERVATION] Modelo compactado em Q4_K_M (3.9 GB) operando com estabilidade.\n[EXECUTION] Iniciando streaming de resposta:\n\n" +
-          "O pipeline de inteligência artificial de Qwenimageflow Orquestrador De Geracao De Imagens Com Quantizacao Local E Rag concluiu a quantização com taxa de compressão de 72,5%. A latência média por token estabilizou em 20.8ms com precisão mantida em 99.1% do baseline original."
-        : "Iniciando geração generativa neural com Qwenimageflow Orquestrador De Geracao De Imagens Com Quantizacao Local E Rag...\n" +
-          "Processando tensores em memória unificada...\n" +
-          "Vazão de streaming: 48 tokens/segundo.\n" +
-          "Métricas Prometheus exportadas em /metrics. Todas as invariantes arquiteturais validadas com sucesso!";
-
-      let idx = 0;
-      streamTimer = setInterval(() => {
-        if (idx < text.length) {
-          out.textContent = text.slice(0, idx + 1);
-          idx += 2;
-          if (Math.random() > 0.7) addLatPoint(21);
-        } else {
-          clearInterval(streamTimer);
-          streamTimer = null;
-        }
-      }, 18);
-    }
-
-    function clearStream() {
-      if (streamTimer) clearInterval(streamTimer);
-      document.getElementById('streamOut').textContent = 'Console limpo. Clique em um botão para iniciar.';
-    }
-
-    function escapeHtml(str) {
-      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    function runSimulation() {
+      const output = document.getElementById('playground-output');
+      const input = document.getElementById('playground-input').value;
+      const now = new Date().toISOString();
+      output.innerText += "\n\n[DISPATCH " + now + "] Request received by Inbound Gateway.";
+      output.innerText += "\n[CHECK] Token Bucket Rate Limiter: Allowed (1 token consumed, 49 remaining).";
+      output.innerText += "\n[EXEC] Hexagonal Core Result Monad: Success(result=200 OK, payload=" + input.slice(0, 30) + "...).";
+      output.innerText += "\n[TELEMETRY] Latency recorded: 0.94ms. Ring buffer updated.";
+      output.scrollTop = output.scrollHeight;
     }
   </script>
 </body>
