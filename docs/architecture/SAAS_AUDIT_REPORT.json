@@ -1,0 +1,15 @@
+{
+  "slug": "qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag",
+  "auditedAt": "2026-09-30T15:08:15.179Z",
+  "score": 100,
+  "checks": {
+    "automatedTestsPassed": true,
+    "testCount": 16,
+    "readmePresent": true,
+    "ciPipelineConfigured": true,
+    "containerizationReady": true,
+    "architectureDocsPresent": true,
+    "authorAttribution": "Felipe Madison (@FelipeMadson)"
+  },
+  "readinessStatus": "PRODUCTION_READY"
+}
