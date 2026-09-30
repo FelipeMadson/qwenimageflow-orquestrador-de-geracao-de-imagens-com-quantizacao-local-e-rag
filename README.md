@@ -25,6 +25,14 @@
 
 ---
 
+## 📐 Arquitetura do Sistema & Fluxo de Dados
+
+<p align="center">
+  <img src="docs/assets/architecture.svg" alt="Arquitetura & Fluxo de Dados - Qwenimageflow Orquestrador De Geracao De Imagens Com Quantizacao Local E Rag" width="920" />
+</p>
+
+---
+
 ## 🎮 Live Interactive Playground (No Backend Required)
 
 Experimente o simulador de IA com inferência neural, quantização GGUF (FP16/Q4_K_M) e busca vetorial RAG em tempo real no seu navegador:

@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" width="100%" height="100%">
+  <defs>
+    <linearGradient id="canvasBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d14" />
+      <stop offset="100%" stop-color="#020509" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#141c28" />
+      <stop offset="100%" stop-color="#0d141f" />
+    </linearGradient>
+    <linearGradient id="accentCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+    <linearGradient id="accentPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7" />
+      <stop offset="100%" stop-color="#6366f1" />
+    </linearGradient>
+    <linearGradient id="accentEmerald" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
+  </defs>
+
+  <style>
+    .bg { fill: url(#canvasBg); stroke: #1e293b; stroke-width: 1.5; rx: 14px; }
+    .header-bar { fill: #0d131f; stroke-bottom: #1e293b; }
+    .card { fill: url(#cardGrad); stroke: #26354a; stroke-width: 1.2; rx: 8px; }
+    .card-active { fill: url(#cardGrad); stroke: #06b6d4; stroke-width: 1.5; rx: 8px; }
+    .text-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; font-weight: 700; fill: #f8fafc; }
+    .text-subtitle { font-family: ui-monospace, SFMono-Regular, monospace; font-size: 11px; fill: #94a3b8; }
+    .text-label { font-family: ui-monospace, SFMono-Regular, monospace; font-size: 10px; fill: #64748b; font-weight: 600; }
+    .badge { font-family: ui-monospace, SFMono-Regular, monospace; font-size: 10px; font-weight: 700; fill: #38bdf8; }
+    .arrow { stroke: #38bdf8; stroke-width: 1.8; stroke-dasharray: 4, 3; fill: none; }
+    .arrow-solid { stroke: #06b6d4; stroke-width: 2; fill: none; }
+    .pulse-dot { fill: #06b6d4; }
+  </style>
+
+  <!-- Container Principal -->
+  <g filter="url(#shadow)">
+    <rect x="15" y="15" width="930" height="390" rx="14" class="bg" />
+    
+    <!-- Header -->
+    <path d="M 15 29 A 14 14 0 0 1 29 15 L 931 15 A 14 14 0 0 1 945 29 L 945 58 L 15 58 Z" class="header-bar" />
+    <circle cx="38" cy="36" r="5" fill="#ef4444" />
+    <circle cx="54" cy="36" r="5" fill="#f59e0b" />
+    <circle cx="70" cy="36" r="5" fill="#10b981" />
+    
+    <text x="96" y="40" class="text-title">Qwenimageflow Orquestrador De Geracao De Imagens Com Quantizacao Local E Rag</text>
+    <text x="440" y="40" class="badge">ARQUITETURA &amp; PIPELINE DE DADOS · [AI STUDIO &amp; NEURAL INFERENCE]</text>
+    <text x="820" y="40" class="text-label">FELIPE MADISON</text>
+
+    <!-- Conteúdo Específico do Arquétipo -->
+    
+    <!-- Bloco 1: Input & Prompt Router -->
+    <g transform="translate(45, 95)">
+      <rect width="180" height="260" class="card" />
+      <rect x="0" y="0" width="180" height="32" rx="8" fill="#1e293b" />
+      <text x="14" y="21" class="text-title">1. Prompt &amp; Context</text>
+      <text x="14" y="65" class="text-subtitle">Entrada Multimodal</text>
+      <text x="14" y="85" class="text-label">• Prompt Textual</text>
+      <text x="14" y="105" class="text-label">• Tokenizer BPE</text>
+      <text x="14" y="125" class="text-label">• Embedding Vectors</text>
+      
+      <rect x="14" y="160" width="152" height="75" rx="6" fill="#090d14" stroke="#334155" />
+      <text x="24" y="185" class="badge">Top-K Similarity</text>
+      <text x="24" y="205" class="text-label">Cosine Metric &gt; 0.85</text>
+      <text x="24" y="222" class="text-label">Zero Network Fetch</text>
+    </g>
+
+    <!-- Seta 1 -> 2 -->
+    <path d="M 225 225 L 275 225" class="arrow-solid" marker-end="url(#arrowhead)" />
+    <polygon points="275,221 283,225 275,229" fill="#06b6d4" />
+
+    <!-- Bloco 2: GGUF Quantization Engine -->
+    <g transform="translate(285, 80)">
+      <rect width="210" height="290" class="card-active" />
+      <rect x="0" y="0" width="210" height="32" rx="8" fill="#0e7490" />
+      <text x="14" y="21" class="text-title">2. GGUF Quant Engine</text>
+      <text x="14" y="60" class="text-subtitle">Matriz de Precisão</text>
+      
+      <!-- Precision Boxes -->
+      <rect x="14" y="75" width="182" height="42" rx="4" fill="#090d14" stroke="#10b981" />
+      <text x="24" y="93" class="text-title" fill="#10b981">FP16 · Baseline</text>
+      <text x="24" y="108" class="text-label">14.2 GB VRAM · 1.0x PPL</text>
+
+      <rect x="14" y="125" width="182" height="42" rx="4" fill="#090d14" stroke="#38bdf8" />
+      <text x="24" y="143" class="text-title" fill="#38bdf8">Q4_K_M · Balanced</text>
+      <text x="24" y="158" class="text-label">4.8 GB VRAM · 1.03x PPL</text>
+
+      <rect x="14" y="175" width="182" height="42" rx="4" fill="#090d14" stroke="#f59e0b" />
+      <text x="24" y="193" class="text-title" fill="#f59e0b">Q2_K · Ultra Light</text>
+      <text x="24" y="208" class="text-label">2.9 GB VRAM · 1.25x PPL</text>
+
+      <text x="14" y="245" class="text-subtitle">Inferência Local-First</text>
+      <text x="14" y="262" class="text-label">Zero-VRAM Overcommit</text>
+    </g>
+
+    <!-- Seta 2 -> 3 -->
+    <path d="M 495 225 L 545 225" class="arrow-solid" />
+    <polygon points="545,221 553,225 545,229" fill="#06b6d4" />
+
+    <!-- Bloco 3: Vector RAG Chunks -->
+    <g transform="translate(555, 95)">
+      <rect width="180" height="260" class="card" />
+      <rect x="0" y="0" width="180" height="32" rx="8" fill="#1e293b" />
+      <text x="14" y="21" class="text-title">3. Vector RAG Store</text>
+      <text x="14" y="65" class="text-subtitle">Document Chunks</text>
+      <text x="14" y="85" class="text-label">• Chunk 01: Core Logic</text>
+      <text x="14" y="105" class="text-label">• Chunk 02: Schemas</text>
+      <text x="14" y="125" class="text-label">• Chunk 03: Security</text>
+
+      <rect x="14" y="160" width="152" height="75" rx="6" fill="#090d14" stroke="#334155" />
+      <text x="24" y="185" class="badge">ReAct Execution</text>
+      <text x="24" y="205" class="text-label">Thought &gt; Action</text>
+      <text x="24" y="222" class="text-label">Observation Loop</text>
+    </g>
+
+    <!-- Seta 3 -> 4 -->
+    <path d="M 735 225 L 775 225" class="arrow-solid" />
+    <polygon points="775,221 783,225 775,229" fill="#06b6d4" />
+
+    <!-- Bloco 4: Canvas Telemetry & Output -->
+    <g transform="translate(785, 95)">
+      <rect width="130" height="260" class="card" />
+      <rect x="0" y="0" width="130" height="32" rx="8" fill="#1e293b" />
+      <text x="12" y="21" class="text-title">4. Telemetria</text>
+      <text x="12" y="65" class="text-subtitle">Canvas 2D</text>
+      <text x="12" y="90" class="text-label">Latência P99</text>
+      <text x="12" y="110" class="text-title" fill="#10b981">18.4 ms</text>
+
+      <text x="12" y="150" class="text-label">Throughput</text>
+      <text x="12" y="170" class="text-title" fill="#38bdf8">92 tok/s</text>
+
+      <text x="12" y="210" class="text-label">Status</text>
+      <text x="12" y="230" class="badge">100% Determin.</text>
+    </g>
+  </g>
+</svg>
