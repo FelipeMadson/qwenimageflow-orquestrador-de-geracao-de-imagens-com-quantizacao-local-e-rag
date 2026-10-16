@@ -1,5 +1,8 @@
 # QwenImageFlow: Orquestrador de Geração de Imagens com Quantização Local e RAG
 
+> 🇧🇷 **[Versão em Português](README.pt-BR.md)** | 🇺🇸 **English Version**
+
+
 [![CI Status](https://github.com/FelipeMadson/qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag/actions/workflows/ci.yml/badge.svg)](https://github.com/FelipeMadson/qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag/actions)
 [![Latest Release](https://img.shields.io/github/v/release/FelipeMadson/qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag?color=145e4d&logo=github)](https://github.com/FelipeMadson/qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag/releases)
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-145e4d?logo=github)](https://felipemadson.github.io/qwenimageflow-orquestrador-de-geracao-de-imagens-com-quantizacao-local-e-rag/)
